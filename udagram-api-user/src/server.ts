@@ -1,20 +1,21 @@
 import cors from 'cors';
 import express from 'express';
-import { sequelize } from '../sequelize';
-
-import { IndexRouter } from './controllers/v0/router';
-
 import bodyParser from 'body-parser';
 
+import { sequelize } from './sequelize';
+import { IndexRouter } from './controllers/v0/router';
 import { config } from './config/config';
 import { V0_USER_MODELS } from './controllers/v0/model';
-
 
 (async () => {
   await sequelize.addModels(V0_USER_MODELS);
 
-  console.debug('Initialize database connection...');
-  await sequelize.sync();
+  try {
+    console.debug('Initialize database connection...');
+    await sequelize.sync();
+  } catch (error) {
+    console.log('Connect to database failed! Error:', error);
+  }
 
   const app = express();
   const port = process.env.PORT || 8080;

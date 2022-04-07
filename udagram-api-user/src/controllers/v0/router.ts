@@ -1,18 +1,12 @@
-import { Router, Request, Response } from 'express';
-
-import { User } from './models/user';
-import { AuthRouter } from './routes/auth';
+import {Router, Request, Response} from 'express';
+import {UserRouter} from './routes/user';
 
 const router: Router = Router();
 
-router.use('/auth', AuthRouter);
+router.use('/users', UserRouter);
 
-router.get('/');
-
-router.get('/:id', async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const item = await User.findByPk(id);
-  res.send(item);
+router.get('/', async (req: Request, res: Response) => {
+  res.send('V0');
 });
 
 export const IndexRouter: Router = router;

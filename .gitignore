@@ -7,3 +7,4 @@ www/
 .sass-cache/
 .tmp/
 .DS_Store
+docker.env
